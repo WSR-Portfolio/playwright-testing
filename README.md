@@ -14,6 +14,13 @@ decisions, and AI-assisted development workflow using Claude Code.
 - Custom fixtures for authenticated test setup across multiple user types
 - Centralized test data (users, products) kept separate from test logic
 
+## What's Not Here
+- Since SauceDemo has no payment gateway, no charges occur and payment edge cases (eg: declined cards, CVV validation) are meaningless
+- All state is client-side. There is no backend to probe for SQL injection, XSS, rate limiting, or API fuzzing so server-side API behavior / security injection tests have no surface area
+- Credentials are hardcoded on the login page so no registration or recovery flows exist
+- SauceDemo is a training target. Deep browser matrix testing is outside its purpose
+- Except for the scripted performance_glitch_user delay, there is no server to overload. Latency tests are not meaningful
+
 ## Tech Stack
 
 - [Playwright](https://playwright.dev/) — test framework and browser automation
@@ -23,6 +30,7 @@ decisions, and AI-assisted development workflow using Claude Code.
 ## Setup
 ```bash
 npm install
+npx playwright install
 ```
 
 ## Running Tests

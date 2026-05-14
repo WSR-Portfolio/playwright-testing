@@ -52,9 +52,12 @@ test.describe('Checkout', () => {
       const checkoutPage = await cartPage.checkout();
       await checkoutPage.fillInfo('Test', 'User', '12345');
 
+      // The defect is more specific than "last name drops input" —
+      // keystrokes typed into Last Name are redirected into First Name instead.
+      // So First Name ends up with the last name value ('User') and Last Name stays empty.
       test.info().annotations.push({
         type: 'bug',
-        description: 'Last Name field silently drops all keystrokes for problem_user. First Name and Postal Code accept input correctly. Continue fails with "Last Name is required."',
+        description: 'Last Name field redirects keystrokes into First Name for problem_user. Typing "User" into Last Name causes First Name to become "User" while Last Name stays empty. Continue fails with "Last Name is required."',
       });
 
       await expect(checkoutPage.firstName).toHaveValue('User');

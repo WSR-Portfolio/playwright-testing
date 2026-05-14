@@ -74,6 +74,8 @@ test.describe('Hamburger menu', () => {
     await inventoryPage.openMenu();
     await inventoryPage.resetAppState();
     await inventoryPage.closeMenu();
+    // Reset App State clears localStorage immediately but the inventory buttons
+    // don't re-render without a reload — found this during manual verification.
     await inventoryPage.page.reload();
 
     await expect(inventoryPage.cartBadge).not.toBeVisible();

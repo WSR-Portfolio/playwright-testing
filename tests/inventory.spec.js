@@ -126,12 +126,16 @@ test.describe('Inventory', () => {
       });
     });
 
-    test('cart icon renders outside the primary header', async ({ page, visualInventoryPage }) => {
+    test('cart icon is present in the page header', async ({ page, visualInventoryPage }) => {
       const cartInHeader = page.locator('.primary_header [data-test="shopping-cart-link"]');
 
+      // DOM check confirms the element is in the right place in the HTML.
+      // visual_user has a known CSS rendering anomaly where the cart icon
+      // visually appears outside the header bounds — that kind of bug requires
+      // screenshot/visual regression testing to detect programmatically.
       test.info().annotations.push({
-        type: 'bug',
-        description: 'Cart icon is not inside .primary_header — it renders in the wrong position on the page.',
+        type: 'info',
+        description: 'Cart icon is confirmed present in .primary_header DOM. Known visual anomaly: for visual_user the icon renders in the wrong visual position due to a CSS issue. This cannot be detected with a DOM assertion alone — would require visual regression (e.g. Playwright screenshot comparison).',
       });
       await expect(cartInHeader).toHaveCount(1);
     });
@@ -172,6 +176,10 @@ test.describe('Inventory', () => {
 
       const failures = results.filter(r => !r.responded);
       const cartCount = await problemInventoryPage.getCartCount();
+
+      // Asserting failures.length > 0 rather than a specific count because the
+      // broken buttons aren't always the same ones across runs — the defect is
+      // consistent in that some fail, but not consistent in which ones.
 
       test.info().annotations.push({
         type: 'bug',

@@ -110,7 +110,7 @@ test.describe('Inventory', () => {
       await expect(visualInventoryPage.productCards).toHaveCount(6);
     });
 
-    test('product names match catalog but images are mismatched', async ({ visualInventoryPage }) => {
+    test('product names match catalog and all product images are distinct', async ({ visualInventoryPage }) => {
       const names = await visualInventoryPage.productNames.allTextContents();
       const expectedNames = PRODUCTS.map(p => p.name);
       expect(names).toEqual(expectedNames);

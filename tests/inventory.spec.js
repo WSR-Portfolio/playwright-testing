@@ -58,9 +58,9 @@ test.describe('Inventory', () => {
     test.info().annotations.push({ type: 'perf', description: `Login delay: ${elapsed}ms` });
 
     await expect(page).toHaveURL(/inventory\.html/);
-    expect(elapsed).toBeGreaterThan(3000);
     await expect(inventoryPage.title).toHaveText('Products');
     await expect(inventoryPage.productCards).toHaveCount(6);
+    expect(elapsed).toBeGreaterThan(3000);
   });
 
   test.describe('Error user', () => {

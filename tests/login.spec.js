@@ -63,7 +63,7 @@ test.describe('Login', () => {
     await expect(cartPage.cartItems).toHaveCount(2);
   });
 
-  test('standard user can log out and session is cleared', async ({ page, inventoryPage }) => {
+  test('standard user can log out and back button cannot re-enter the app', async ({ page, inventoryPage }) => {
     await inventoryPage.openMenu();
     await expect(inventoryPage.menuSidebar).toHaveAttribute('aria-hidden', 'false');
     await expect(inventoryPage.logoutLink).toBeVisible();

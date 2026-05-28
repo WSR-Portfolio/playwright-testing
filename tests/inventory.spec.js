@@ -140,12 +140,12 @@ test.describe('Inventory', () => {
       await expect(cartInHeader).toHaveCount(1);
     });
 
-    test('add to cart button labels have anomalies', async ({ visualInventoryPage }) => {
+    test('add to cart button labels are correct', async ({ visualInventoryPage }) => {
       const labels = await visualInventoryPage.addToCartButtons.allTextContents();
       const anomalies = labels.filter(l => l !== 'Add to cart');
 
       test.info().annotations.push({
-        type: 'bug',
+        type: 'info',
         description: `Button label anomalies found: ${JSON.stringify(anomalies)}`,
       });
       expect(anomalies.length).toBe(0);

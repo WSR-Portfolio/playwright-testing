@@ -1,6 +1,8 @@
 const { test, expect } = require('../fixtures/auth');
 const { PRODUCTS, EXPECTED_ITEM_TOTAL } = require('../data/products');
 
+const parseDollars = text => parseFloat(text.replace(/[^0-9.]/g, ''));
+
 test.describe('Checkout', () => {
 
   test.describe('Performance glitch user', () => {
@@ -128,9 +130,9 @@ test.describe('Checkout', () => {
     const taxText       = await overviewPage.taxLabel.textContent();
     const totalText     = await overviewPage.totalLabel.textContent();
 
-    const subtotal = parseFloat(subtotalText.replace(/[^0-9.]/g, ''));
-    const tax      = parseFloat(taxText.replace(/[^0-9.]/g, ''));
-    const total    = parseFloat(totalText.replace(/[^0-9.]/g, ''));
+    const subtotal = parseDollars(subtotalText);
+    const tax      = parseDollars(taxText);
+    const total    = parseDollars(totalText);
 
     expect(subtotal).toBeCloseTo(expectedSubtotal, 2);
     expect(tax).toBeGreaterThan(0);
@@ -204,9 +206,9 @@ test.describe('Checkout', () => {
     const taxText      = await overviewPage.taxLabel.textContent();
     const totalText    = await overviewPage.totalLabel.textContent();
 
-    const subtotal = parseFloat(subtotalText.replace(/[^0-9.]/g, ''));
-    const tax      = parseFloat(taxText.replace(/[^0-9.]/g, ''));
-    const total    = parseFloat(totalText.replace(/[^0-9.]/g, ''));
+    const subtotal = parseDollars(subtotalText);
+    const tax      = parseDollars(taxText);
+    const total    = parseDollars(totalText);
 
     expect(subtotal).toBeCloseTo(EXPECTED_ITEM_TOTAL, 2);
     expect(tax).toBeGreaterThan(0);
